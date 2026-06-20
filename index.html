@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#003f5c">
+  <title>목포해양대 연구실적 비교</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">대학정보공시 기반</p>
+        <h1>목포해양대 연구실적 비교</h1>
+      </div>
+      <button class="icon-button" id="shareButton" type="button" aria-label="공유">
+        <span>↗</span>
+      </button>
+    </header>
+
+    <section class="notice" id="dataNotice">
+      <strong>데이터 확인 필요</strong>
+      <span>현재 값은 앱 동작 확인용 기본 데이터입니다. 대학알리미에서 내려받은 최근 3년 공시값으로 <code>data/research-data.csv</code>를 교체해 사용하세요.</span>
+    </section>
+
+    <section class="hero-panel">
+      <div>
+        <p class="panel-label">최근 3개 공시연도 합계</p>
+        <h2 id="heroTitle">국립목포해양대학교</h2>
+        <p id="heroSummary">연구성과를 불러오는 중입니다.</p>
+      </div>
+      <div class="score-ring" aria-label="종합 점수">
+        <canvas id="scoreCanvas" width="120" height="120"></canvas>
+        <div>
+          <strong id="scoreValue">0</strong>
+          <span>점</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="tabbar" aria-label="분석 탭">
+      <button class="tab active" data-tab="overview" type="button">요약</button>
+      <button class="tab" data-tab="trend" type="button">3년 추이</button>
+      <button class="tab" data-tab="rank" type="button">순위</button>
+      <button class="tab" data-tab="data" type="button">데이터</button>
+    </nav>
+
+    <section class="view active" id="overviewView">
+      <div class="metric-grid" id="metricGrid"></div>
+      <article class="section-block">
+        <div class="section-title">
+          <h3>대학별 연구성과 비교</h3>
+          <select id="metricSelect" aria-label="비교 지표">
+            <option value="sci">SCI급 논문</option>
+            <option value="registered">등재·후보지 논문</option>
+            <option value="books">저역서</option>
+            <option value="total">전체 연구성과</option>
+          </select>
+        </div>
+        <canvas class="chart" id="barChart" height="260"></canvas>
+      </article>
+    </section>
+
+    <section class="view" id="trendView">
+      <article class="section-block">
+        <div class="section-title">
+          <h3>목포해양대 3년 추이</h3>
+          <select id="trendMetricSelect" aria-label="추이 지표">
+            <option value="sci">SCI급 논문</option>
+            <option value="registered">등재·후보지 논문</option>
+            <option value="books">저역서</option>
+            <option value="total">전체 연구성과</option>
+          </select>
+        </div>
+        <canvas class="chart" id="lineChart" height="280"></canvas>
+      </article>
+      <article class="section-block">
+        <h3>해석 메모</h3>
+        <ul class="insight-list" id="insightList"></ul>
+      </article>
+    </section>
+
+    <section class="view" id="rankView">
+      <article class="section-block">
+        <h3>최근 3년 누적 순위</h3>
+        <div class="rank-list" id="rankList"></div>
+      </article>
+    </section>
+
+    <section class="view" id="dataView">
+      <article class="section-block">
+        <h3>공시 데이터 교체</h3>
+        <p class="muted">대학알리미에서 같은 항목을 내려받은 뒤 아래 형식으로 CSV를 저장하면 앱이 자동으로 반영합니다.</p>
+        <pre class="csv-sample">year,university,sci,registered,books
+2026,국립목포해양대학교,0,0,0</pre>
+        <label class="file-drop">
+          <input id="csvInput" type="file" accept=".csv,text/csv">
+          <span>CSV 파일 불러오기</span>
+        </label>
+        <div class="data-table-wrap">
+          <table id="dataTable">
+            <thead>
+              <tr>
+                <th>연도</th>
+                <th>대학</th>
+                <th>SCI</th>
+                <th>등재·후보</th>
+                <th>저역서</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
